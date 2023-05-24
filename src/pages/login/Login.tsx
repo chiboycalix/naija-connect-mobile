@@ -11,16 +11,28 @@ import {FontAwesomeIcon} from '@fortawesome/react-native-fontawesome';
 import {faGoogle} from '@fortawesome/free-brands-svg-icons';
 import {useForm} from 'react-hook-form';
 import {useNavigation} from '@react-navigation/native';
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  QueryClient,
+  QueryClientProvider,
+} from 'react-query';
+import {login} from './apiCalls';
+
 import {loginStyles} from './login.styles';
+import CustomText from '../../components/CustomText';
 
 const LoginScreen = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+  // const { data, isLoading, isError, error } = useQuery('users', getUsers);
+  const {mutate, isLoading, isError, error} = useMutation(login as any);
 
   const navigation = useNavigation<any>();
 
   const handleLogin = () => {
-    // Logic for handling login
+    mutate({email, password} as any);
   };
 
   const handleForgotPassword = () => {
@@ -32,12 +44,14 @@ const LoginScreen = () => {
     console.log('hi');
   };
 
+  const loginWithEmailAndPassword = () => {};
+
   return (
     <View style={styles.container}>
       <View style={styles.headerWrapper}>
         <Text style={styles.logo}>NaijaConnect</Text>
       </View>
-      <Text style={styles.loginText}>Login to your Account</Text>
+      <CustomText style={styles.loginText}>Login to your Account</CustomText>
       <View style={styles.formWrapper}>
         <TextInput
           style={styles.input}
@@ -54,8 +68,11 @@ const LoginScreen = () => {
         secureTextEntry
         onChangeText={text => setPassword(text)}
       />
+      {isError && <Text style={styles.errorText}>Invalid Login details</Text>}
       <TouchableOpacity onPress={handleLogin} style={styles.loginButton}>
-        <Text style={styles.loginButtonText}>Login</Text>
+        <Text style={styles.loginButtonText}>
+          {isLoading ? 'loading...' : 'Login'}
+        </Text>
       </TouchableOpacity>
 
       <TouchableOpacity onPress={handleForgotPassword}>

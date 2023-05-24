@@ -1,3 +1,4 @@
+
 export const loginStyles = {
   container: {
     flex: 1,
@@ -17,6 +18,7 @@ export const loginStyles = {
   loginText: {
     textAlign: 'left',
     marginTop: 40,
+    fontFamily: 'Montserrat',
   },
   formWrapper: {
     marginTop: 20,
@@ -27,7 +29,6 @@ export const loginStyles = {
     height: 40,
     borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 12,
     paddingHorizontal: 10,
     shadowColor: '#171717',
     shadowOffset: {width: 0, height: 2},
@@ -39,6 +40,7 @@ export const loginStyles = {
     borderTopColor: 'transparent',
     borderLeftColor: 'transparent',
     pointerEvents: 'auto',
+    marginBottom: 12,
   },
   loginButton: {
     backgroundColor: '#008751',
@@ -92,5 +94,10 @@ export const loginStyles = {
   },
   signUpText: {
     color: '#008751',
+  },
+  errorText: {
+    color: 'red',
+    marginBottom: 12,
+    textAlign: 'center',
   },
 }
